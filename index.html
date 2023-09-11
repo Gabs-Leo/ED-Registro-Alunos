@@ -83,10 +83,11 @@
     <script>
         const alunoService = new AlunoService("#resultBody");
         const save = () => {
+            document.querySelector(".form-check-input")
             const nome = document.querySelector("#nome").value;
             const ra = document.querySelector("#ra").value;
             const idade = document.querySelector("#idade").value;
-            const sexo = document.querySelector(".form-check-input").value;
+            const sexo = document.querySelector('input[name="genderS"]:checked').value;
             const media = document.querySelector("#media").value;
             alunoService.save(new Aluno(nome, ra, idade, sexo, media, media >= 6))
         }

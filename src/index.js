@@ -16,6 +16,8 @@ class Aluno{
 }
 
 class AlunoService {
+    containerId = ""
+    alunos = []
     constructor(containerId) {
         this.containerId = containerId;
         this.alunos = this.getAlunosFromStorage();
@@ -45,9 +47,9 @@ class AlunoService {
         return [];
     }
     save = (aluno) => {
-        const alunos = this.getAlunosFromStorage();
-        alunos.push(aluno);
-        localStorage.setItem("alunos", JSON.stringify(alunos))
+        this.alunos = this.getAlunosFromStorage();
+        this.alunos.push(aluno);
+        localStorage.setItem("alunos", JSON.stringify(this.alunos))
         this.updateContainer();
     }
     //Valid Sort Types: name, ra, approved 

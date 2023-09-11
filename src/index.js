@@ -1,4 +1,10 @@
 class Aluno{
+    nome
+    ra
+    idade
+    sexo
+    media
+    resultado
     constructor(nome, ra, idade, sexo, media, resultado) {
         this.nome = nome;
         this.ra = ra;
@@ -25,7 +31,7 @@ class AlunoService {
                 <td>${aluno.idade}</td>
                 <td>${aluno.sexo}</td>
                 <td>${aluno.media}</td>
-                <td>${aluno.resultado}</td>
+                <td>${aluno.resultado ? "Aprovado" : "Reprovado"}</td>
             </tr>
             `
         })
@@ -39,7 +45,7 @@ class AlunoService {
         return [];
     }
     save = (aluno) => {
-        const alunos = getAlunosFromStorage();
+        const alunos = this.getAlunosFromStorage();
         alunos.push(aluno);
         localStorage.setItem("alunos", JSON.stringify(alunos))
         this.updateContainer();

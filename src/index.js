@@ -56,19 +56,22 @@ class AlunoService {
     listBySortType = (sortType) => {
         switch(sortType){
             case "ra":
+                this.alunos = this.getAlunosFromStorage();
                 this.alunos.sort((a, b) => (a.ra < b.ra) ? 1 : -1)
                 break;
             case "approved":
+                this.alunos = this.getAlunosFromStorage();
                 this.alunos.sort((a, b) => (a.nome > b.nome) ? 1 : -1)
                 const aprovados = [];
-                alunos.forEach(aluno => {
+                this.alunos.forEach(aluno => {
                     if(aluno.media >= 6)
                         aprovados.push(aluno);
                 })
                 this.alunos = aprovados;
                 break;
             default:
-                alunos.sort((a, b) => (a.nome > b.nome) ? 1 : -1);
+                this.alunos = this.getAlunosFromStorage();
+                this.alunos.sort((a, b) => (a.nome > b.nome) ? 1 : -1);
                 break;
         }
         this.updateContainer();

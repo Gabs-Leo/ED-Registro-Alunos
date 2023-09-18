@@ -13,7 +13,20 @@
     <nav class="navbar navbar-light bg-light">
         <div class="container">
             <a href="#" class="navbar-brand">Gabs</a>
-            <button class="btn btn-success" data-toggle="modal" data-target="#registerModal">Cadastrar Aluno</button>
+            <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center align-items-center">
+                    <label style="width: 160px" for="orderBy">Ordenar Por</label>
+                    <select id="orderBy" class="form-control me-2">
+                        <option value="name">Nome</option>
+                        <option value="ra">Ra</option>
+                        <option value="approved">Aprovados</option>
+                    </select>
+                </div>
+                <div>
+                    <button class="btn btn-danger" data-toggle="modal" onclick="alunoService.clearData()">Limpar Dados</button>
+                    <button class="btn btn-success" data-toggle="modal" data-target="#registerModal">Cadastrar Aluno</button>
+                </div>
+            </div>
         </div>
     </nav>
     <div id="container" class="container">
@@ -91,6 +104,7 @@
             const media = document.querySelector("#media").value;
             alunoService.save(new Aluno(nome, ra, idade, sexo, media, media >= 6))
         }
+        document.querySelector("#orderBy").onchange = () => {alunoService.listBySortType(document.querySelector("#orderBy").value)}
     </script>
     
     <!-- Bootstrap -->

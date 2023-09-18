@@ -57,11 +57,11 @@ class AlunoService {
         switch(sortType){
             case "ra":
                 this.alunos = this.getAlunosFromStorage();
-                this.alunos.sort((a, b) => (a.ra < b.ra) ? 1 : -1)
+                this.alunos.bubbleSort((a, b) => (a.ra < b.ra) ? 1 : -1)
                 break;
             case "approved":
                 this.alunos = this.getAlunosFromStorage();
-                this.alunos.sort((a, b) => (a.nome > b.nome) ? 1 : -1)
+                this.alunos.bubbleSort((a, b) => (a.nome > b.nome) ? 1 : -1)
                 const aprovados = [];
                 this.alunos.forEach(aluno => {
                     if(aluno.media >= 6)
@@ -71,7 +71,7 @@ class AlunoService {
                 break;
             default:
                 this.alunos = this.getAlunosFromStorage();
-                this.alunos.sort((a, b) => (a.nome > b.nome) ? 1 : -1);
+                this.alunos.bubbleSort((a, b) => (a.nome > b.nome) ? 1 : -1);
                 break;
         }
         this.updateContainer();
@@ -81,4 +81,17 @@ class AlunoService {
         this.alunos = [];
         this.updateContainer();
     }
+}
+
+const bubbleSort = (arr, type) => {
+    for (var i = 0; i < arr.length; i++) {
+        for (var j = 0; j < (arr.length - i - 1); j++) {
+            if (arr[j] > arr[j + 1]) {
+                let temp = arr[j]
+                arr[j] = arr[j + 1]
+                arr[j + 1] = temp
+            }
+        }
+    }
+    console.log(arr);
 }

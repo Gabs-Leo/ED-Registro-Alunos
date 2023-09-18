@@ -16,7 +16,7 @@ class Aluno{
 }
 
 class AlunoService {
-    containerId = ""
+    containerId
     alunos = []
     constructor(containerId) {
         this.containerId = containerId;

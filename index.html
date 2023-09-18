@@ -57,11 +57,11 @@
                 <div class="form-group">
                     <label for="sexo">Sexo</label><br>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="sexoM" value="Masculino">
+                        <input class="form-check-input" type="radio" name="sexo" id="sexoM" value="Masculino">
                         <label class="form-check-label" for="sexoM">Masculino</label>
                     </div>
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="sexoF" value="Feminino">
+                        <input class="form-check-input" type="radio" name="sexo" id="sexoF" value="Feminino">
                         <label class="form-check-label" for="sexoF">Feminino</label>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
             const nome = document.querySelector("#nome").value;
             const ra = document.querySelector("#ra").value;
             const idade = document.querySelector("#idade").value;
-            const sexo = document.querySelector('input[name="genderS"]:checked').value;
+            const sexo = document.querySelector('input[name="sexo"]:checked').value;
             const media = document.querySelector("#media").value;
             alunoService.save(new Aluno(nome, ra, idade, sexo, media, media >= 6))
         }

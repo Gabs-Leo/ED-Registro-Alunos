@@ -1,4 +1,10 @@
 class Aluno{
+    nome
+    ra
+    idade
+    sexo
+    media
+    resultado
     constructor(nome, ra, idade, sexo, media, resultado) {
         this.nome = nome;
         this.ra = ra;
@@ -10,6 +16,8 @@ class Aluno{
 }
 
 class AlunoService {
+    containerId
+    alunos = []
     constructor(containerId) {
         this.containerId = containerId;
         this.alunos = this.getAlunosFromStorage();
@@ -25,7 +33,7 @@ class AlunoService {
                 <td>${aluno.idade}</td>
                 <td>${aluno.sexo}</td>
                 <td>${aluno.media}</td>
-                <td>${aluno.resultado}</td>
+                <td>${aluno.resultado ? "Aprovado" : "Reprovado"}</td>
             </tr>
             `
         })
@@ -39,28 +47,31 @@ class AlunoService {
         return [];
     }
     save = (aluno) => {
-        const alunos = getAlunosFromStorage();
-        alunos.push(aluno);
-        localStorage.setItem("alunos", JSON.stringify(alunos))
+        this.alunos = this.getAlunosFromStorage();
+        this.alunos.push(aluno);
+        localStorage.setItem("alunos", JSON.stringify(this.alunos))
         this.updateContainer();
     }
     //Valid Sort Types: name, ra, approved 
     listBySortType = (sortType) => {
         switch(sortType){
             case "ra":
+                this.alunos = this.getAlunosFromStorage();
                 this.alunos.sort((a, b) => (a.ra < b.ra) ? 1 : -1)
                 break;
             case "approved":
+                this.alunos = this.getAlunosFromStorage();
                 this.alunos.sort((a, b) => (a.nome > b.nome) ? 1 : -1)
                 const aprovados = [];
-                alunos.forEach(aluno => {
+                this.alunos.forEach(aluno => {
                     if(aluno.media >= 6)
                         aprovados.push(aluno);
                 })
                 this.alunos = aprovados;
                 break;
             default:
-                alunos.sort((a, b) => (a.nome > b.nome) ? 1 : -1);
+                this.alunos = this.getAlunosFromStorage();
+                this.alunos.sort((a, b) => (a.nome > b.nome) ? 1 : -1);
                 break;
         }
         this.updateContainer();

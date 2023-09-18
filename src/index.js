@@ -54,26 +54,8 @@ class AlunoService {
     }
     //Valid Sort Types: name, ra, approved 
     listBySortType = (sortType) => {
-        switch(sortType){
-            case "ra":
-                this.alunos = this.getAlunosFromStorage();
-                this.alunos.sort((a, b) => (a.ra < b.ra) ? 1 : -1)
-                break;
-            case "approved":
-                this.alunos = this.getAlunosFromStorage();
-                this.alunos.sort((a, b) => (a.nome > b.nome) ? 1 : -1)
-                const aprovados = [];
-                this.alunos.forEach(aluno => {
-                    if(aluno.media >= 6)
-                        aprovados.push(aluno);
-                })
-                this.alunos = aprovados;
-                break;
-            default:
-                this.alunos = this.getAlunosFromStorage();
-                this.alunos.sort((a, b) => (a.nome > b.nome) ? 1 : -1);
-                break;
-        }
+        this.alunos = this.getAlunosFromStorage();
+        this.alunos = bubbleSort(this.alunos, sortType);
         this.updateContainer();
     }
     clearData = () => {
@@ -81,4 +63,40 @@ class AlunoService {
         this.alunos = [];
         this.updateContainer();
     }
+}
+
+const bubbleSort = (arr, type) => {
+    switch(type){
+        case "ra":
+            for (var i = 0; i < arr.length; i++) {
+                for (var j = 0; j < (arr.length - i - 1); j++) {
+                    if (arr[j].ra < arr[j + 1].ra) {
+                        let temp = arr[j]
+                        arr[j] = arr[j + 1]
+                        arr[j + 1] = temp
+                    }
+                }
+            }
+            break;
+        case "approved":
+            bubbleSort(arr, "name")
+            const aprovados = [];
+            arr.forEach(aluno => {
+                if(aluno.media >= 6)
+                    aprovados.push(aluno);
+            })
+            arr = aprovados;
+            break;
+        default:
+            for (var i = 0; i < arr.length; i++) {
+                for (var j = 0; j < (arr.length - i - 1); j++) {
+                    if (arr[j].nome > arr[j + 1].nome) {
+                        let temp = arr[j]
+                        arr[j] = arr[j + 1]
+                        arr[j + 1] = temp
+                    }
+                }
+            }
+    }
+    return arr;
 }
